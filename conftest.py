@@ -9,7 +9,7 @@ def playwright():
         yield p
 
 @pytest.fixture(scope="session")
-def browser(playwright):
+def browser(playwright):git
     print("Creating new browser session for test")
 
     if BROWSER.lower() == "chromium":
