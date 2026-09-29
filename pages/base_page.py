@@ -1,4 +1,4 @@
-from playwright.sync_api import Page
+from playwright.sync_api import Page, Locator
 
 
 class BasePage:
@@ -8,8 +8,11 @@ class BasePage:
     def navigate(self, url):
         self.page.goto(url)
 
+    def get_url(self):
+        return self.page.url
+
     def get_title(self):
-        return self.page.title
+        return self.page.title()
 
     def refresh_page(self):
         self.page.reload()
@@ -22,3 +25,9 @@ class BasePage:
 
     def take_screenshot(self, path: str):
         self.page.screenshot(path=path)
+
+    def is_visible(self, element: Locator) -> bool:
+        return element.is_visible()
+
+    def is_enabled(self, element: Locator) -> bool:
+        return element.is_enabled()

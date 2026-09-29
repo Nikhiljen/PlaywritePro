@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-URL = os.getenv('URL')
+URL = os.getenv('QA_URL')
 USERNAME = os.getenv('USERNAME')
 PASSWORD = os.getenv('PASSWORD')
 BROWSER = os.getenv('BROWSER')
