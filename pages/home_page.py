@@ -1,6 +1,8 @@
 from playwright.sync_api import Page
 
 from pages.base_page import BasePage
+from pages.login_page import LoginPage
+from pages.register_page import RegisterPage
 
 
 class HomePage(BasePage):
@@ -27,3 +29,16 @@ class HomePage(BasePage):
     def get_home_page_title(self) -> str:
         return self.get_title()
 
+    def is_register_link_ready(self) -> bool:
+        return self.is_visible(self.register_link) and self.is_enabled(self.register_link)
+
+    def is_login_link_ready(self) -> bool:
+        return self.is_visible(self.login_link) and self.is_enabled(self.login_link)
+
+    def click_on_register_link(self) -> RegisterPage:
+        self.register_link.click()
+        return RegisterPage(self.page)
+
+    def click_on_login_link(self) -> LoginPage:
+        self.login_link.click()
+        return LoginPage(self.page)

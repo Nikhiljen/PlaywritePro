@@ -3,6 +3,7 @@ from playwright.sync_api import Page, Locator
 
 class BasePage:
     def __init__(self, page : Page):
+        self.element = None
         self.page = page
 
     def navigate(self, url):
@@ -31,3 +32,9 @@ class BasePage:
 
     def is_enabled(self, element: Locator) -> bool:
         return element.is_enabled()
+
+    def click_on_button(self,element : Locator):
+        element.click()
+
+    def fill_input(self, element: Locator, value : str) -> None:
+        element.fill(value)
