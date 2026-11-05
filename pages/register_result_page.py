@@ -9,4 +9,7 @@ class RegisterResultPage(BasePage):
 
         # Locator
         registration_success_message = page.get_by_text("Your registration completed")
-        continue_button =
+        continue_button = page.locator("//input[@value='Continue']")
+
+    def clickOnContinue(self):
+        pass

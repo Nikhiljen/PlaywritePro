@@ -2,39 +2,17 @@ from playwright.sync_api import Page, Locator
 
 
 class BasePage:
-    def __init__(self, page : Page):
-        self.element = None
+    def __init__(self, page: Page):
         self.page = page
 
-    def navigate(self, url):
+    def navigate(self, url: str) -> None:
         self.page.goto(url)
 
-    def get_url(self):
-        return self.page.url
+    def click(self, locator: Locator) -> None:
+        locator.click()
 
-    def get_title(self):
-        return self.page.title()
+    def fill(self, locator: Locator, value: str) -> None:
+        locator.fill(value)
 
-    def refresh_page(self):
-        self.page.reload()
-
-    def go_back(self):
-        self.page.go_back()
-
-    def wait_for_load(self):
-        self.page.wait_for_load_state()
-
-    def take_screenshot(self, path: str):
+    def screenshot(self, path: str) -> None:
         self.page.screenshot(path=path)
-
-    def is_visible(self, element: Locator) -> bool:
-        return element.is_visible()
-
-    def is_enabled(self, element: Locator) -> bool:
-        return element.is_enabled()
-
-    def click_on_button(self,element : Locator):
-        element.click()
-
-    def fill_input(self, element: Locator, value : str) -> None:
-        element.fill(value)

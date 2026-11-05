@@ -1,6 +1,7 @@
 from playwright.sync_api import Page
 
 from pages.base_page import BasePage
+from pages.register_result_page import RegisterResultPage
 
 
 class RegisterPage(BasePage):
@@ -34,5 +35,6 @@ class RegisterPage(BasePage):
     def fill_confirm_password_fill(self,confirm_password):
         self.fill_input(self.confirm_password,confirm_password)
 
-    def click_on_register_button(self):
+    def click_on_register_button(self) -> RegisterResultPage:
         self.click_on_button(self.register_button)
+        return RegisterResultPage(self.page)

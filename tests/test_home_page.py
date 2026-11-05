@@ -1,5 +1,5 @@
 from config.config_reader import URL
-from tests.BaseTest import BaseTest
+from tests.base_test import BaseTest
 
 
 class TestHomePage(BaseTest):
@@ -20,6 +20,5 @@ class TestHomePage(BaseTest):
     def test_login_link_visible_and_enabled(self):
         assert self.home_page.is_login_link_ready() is True, "Login not visible on home page"
 
-    def
 
 
