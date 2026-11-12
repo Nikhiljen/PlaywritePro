@@ -1,24 +1,30 @@
+import pytest
+from playwright.sync_api import expect
+
 from config.config_reader import URL
 from tests.base_test import BaseTest
 
 
 class TestHomePage(BaseTest):
+    @pytest.mark.smoke
     def test_home_page_title(self):
-        title = self.home_page.get_home_page_title()
-        assert title == "Demo Web Shop","Page is not Loaded properly"
+        expect(self.page).to_have_title("Demo Web Shop")
 
+    @pytest.mark.smoke
     def test_home_page_load(self):
-        url = self.home_page.get_home_page_url()
-        assert url == URL,"Home Page is not loaded Successfully"
+        expect(self.page).to_have_url(URL)
 
+    @pytest.mark.smoke
     def test_home_page_logo(self):
-        assert self.home_page.is_logo_present() is True, "logo not present on home page"
+        expect(self.home_page.logo).to_be_visible()
 
+    @pytest.mark.smoke
     def test_register_link_visible_and_enabled(self):
-        assert self.home_page.is_register_link_ready() is True, "register not visible on home page"
+        expect(self.home_page.register_link).to_be_visible()
 
+    @pytest.mark.smoke
     def test_login_link_visible_and_enabled(self):
-        assert self.home_page.is_login_link_ready() is True, "Login not visible on home page"
+        expect(self.home_page.login_link).to_be_visible()
 
 
 

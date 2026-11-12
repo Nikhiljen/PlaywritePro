@@ -1,6 +1,4 @@
 import logging
-from operator import truediv
-
 import pytest
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -50,15 +48,18 @@ def page(context_instance,request):
     )
     page = context_instance.new_page()
     yield page
-    page.close()
 
     failed = getattr(request.node, "rep_call", None) and request.node.rep_call.failed
     ARTIFACTS.mkdir(parents=True, exist_ok=True)
     name = request.node.name
-    if failed:
-        page.screenshot(path=ARTIFACTS / f"{name}.png")
-        context_instance.tracing.stop(path=ARTIFACTS / f"{name}.zip")
-        log.error("FAILED: %s -> screenshot + trace saved", name)
-    else:
-        context_instance.tracing.stop()
-    page.close()
+
+    try:
+        if failed:
+            if not page.is_closed():
+                page.screenshot(path=ARTIFACTS / f"{name}.png", full_page=True)
+            context_instance.tracing.stop(path=ARTIFACTS / f"{name}.zip")
+            log.error("FAILED: %s -> artifacts saved", name)
+        else:
+            context_instance.tracing.stop()
+    except Exception as e:
+        log.warning("Could not save artifacts for %s: %s", name, e)
