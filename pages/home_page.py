@@ -14,8 +14,6 @@ class HomePage(BasePage):
         super().__init__(page)
 
         # Locator
-
-        self.logo = page.get_by_alt_text("Tricentis Demo Web Shop")
         self.register_link = page.get_by_role("link",name="Register")
         self.login_link = page.get_by_role("link",name="Log in")
         self.shopping_cart = page.locator("#topcartlink")
@@ -40,6 +38,7 @@ class HomePage(BasePage):
     def open_wishlist(self) -> WishlistPage:
         self.wishlist.click()
         return WishlistPage(self.page)
+
     def get_shopcart_value(self) -> int:
         cart_value = self.shopping_cart.filter(has=self.page.locator(".cart-qty")).inner_text()
         return int(re.search(r"\d+",cart_value).group())
